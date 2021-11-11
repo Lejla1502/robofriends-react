@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Scroll from '../components/Scroll';
 import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
+import ErrorBoundary from '../components/ErrorBoundary';
 //import {robots} from './robots';
 import './App.css';
 
@@ -18,7 +19,7 @@ class App extends Component{
     }
 
 componentDidMount(){
-    fetch("https://jsonplaceholder.typicode.com/users")
+    fetch("https://jsonplaceholder.typicode.com/users")      //ajax call
     .then(response=>  response.json())
     .then(users=>this.setState({robots:users}));
     
@@ -43,7 +44,9 @@ componentDidMount(){
                 <h1 className="f1 ">robofriends</h1>
                 <SearchBox searchChange={this.onSearchChange}/>
                 <Scroll>
+                <ErrorBoundary>
                     <CardList robots={filteredRobots}/>
+                </ErrorBoundary>
                 </Scroll>
             </div>
             
